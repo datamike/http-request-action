@@ -39,7 +39,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: response
-          path: path/to/artifact/world.txt
+          path: /home/runner/work/somedata`date +"%Y%m%d"`.json
 
       - #name: Upload Response
         #uses: actions/upload-artifact@v1
