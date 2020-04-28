@@ -30,3 +30,22 @@ jobs:
           method: 'GET'
           username: 'postman'
           password: 'password'
+        output: response
+ 
+      #- run: mkdir -p path/to/artifact
+      #- run: echo hello > path/to/artifact/world.txt
+
+      - name: Upload Response
+      - uses: actions/upload-artifact@v2
+        with:
+          name: response
+          path: path/to/artifact/world.txt
+
+      - #name: Upload Response
+        #uses: actions/upload-artifact@v1
+        #with:
+        #  name: dist
+        #  path: dist
+
+          #FILE=/home/runner/work/historical-weather-data/historical-weather-data`date +"%Y%m%d"`.json
+
