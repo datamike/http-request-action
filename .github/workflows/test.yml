@@ -25,7 +25,8 @@ jobs:
           method: 'POST'
           data: '{ "key": "value" }'
       
-      - name: RequestEchoBasicAuth
+      - name: Request Postman Echo Basic Auth
+        id: basic
         uses: ./
         with:
           url: 'https://postman-echo.com/basic-auth'
@@ -34,21 +35,23 @@ jobs:
           password: 'password'
           #output: response
 
+      - run: echo ${{ steps.basic.outputs.response }}
+        
       #- run: echo $response > /home/runner/work/somedata.json
-      - name: Print the response status
-        run: echo ${{ steps.RequestEchoBasicAuth.outputs.status }}
-        shell: bash
-      - name: Print the response headers
-        run: echo ${{ steps.RequestEchoBasicAuth.outputs.headers }}
-        shell: bash
-      - name: Print_the_response_payload
-        run: echo ${{ steps.RequestEchoBasicAuth.outputs.response }}
-        shell: bash
+      #- name: Print the response status
+      #  run: echo ${{ steps.RequestEchoBasicAuth.outputs.status }}
+      #  shell: bash
+      #- name: Print the response headers
+      #  run: echo ${{ steps.RequestEchoBasicAuth.outputs.headers }}
+      #  shell: bash
+      #- name: Print the response payload
+      #  run: echo ${{ steps.RequestEchoBasicAuth.outputs.response }}
+      #  shell: bash
 
       - name: Upload Response
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.RequestEchoBasicAuth.outputs.response }}
+          name: ${{ steps.basic.outputs.response }}
           path: /home/runner/work/somedata.json
 
       #- name: Upload Response
