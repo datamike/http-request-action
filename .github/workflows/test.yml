@@ -41,7 +41,7 @@ jobs:
           name: response
           path: /home/runner/work/somedata`date +"%Y%m%d"`.json
 
-      - #name: Upload Response
+      #- name: Upload Response
         #uses: actions/upload-artifact@v1
         #with:
         #  name: dist
