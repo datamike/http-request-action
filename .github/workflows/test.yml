@@ -10,7 +10,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
       
-      - run: mkdir -p /home/runner/work
+      #- run: mkdir -p /home/runner/work
 
       - name: Request Postment Echo GET
         uses: ./
@@ -25,7 +25,7 @@ jobs:
           method: 'POST'
           data: '{ "key": "value" }'
       
-      - name: Request Postment Echo BasicAuth
+      - name: RequestEchoBasicAuth
         uses: ./
         with:
           url: 'https://postman-echo.com/basic-auth'
@@ -34,12 +34,21 @@ jobs:
           password: 'password'
           #output: response
 
-      - run: echo $response > /home/runner/work/somedata.json
+      #- run: echo $response > /home/runner/work/somedata.json
+      - name: Print the response status
+        run: echo ${{ steps.RequestEchoBasicAuth.outputs.status }}
+        shell: bash
+      - name: Print the response headers
+        run: echo ${{ steps.RequestEchoBasicAuth.outputs.headers }}
+        shell: bash
+      - name: Print_the_response_payload
+        run: echo ${{ steps.RequestEchoBasicAuth.outputs.response }}
+        shell: bash
 
       - name: Upload Response
         uses: actions/upload-artifact@v2
         with:
-          name: response
+          name: ${{ steps.RequestEchoBasicAuth.outputs.response }}
           path: /home/runner/work/somedata.json
 
       #- name: Upload Response
