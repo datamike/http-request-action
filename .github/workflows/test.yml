@@ -30,7 +30,7 @@ jobs:
           method: 'GET'
           username: 'postman'
           password: 'password'
-        output: response
+          output: response
  
       #- run: mkdir -p path/to/artifact
       #- run: echo hello > path/to/artifact/world.txt
