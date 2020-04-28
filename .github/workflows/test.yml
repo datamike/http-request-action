@@ -31,9 +31,6 @@ jobs:
           username: 'postman'
           password: 'password'
           output: response
- 
-      #- run: mkdir -p path/to/artifact
-      #- run: echo hello > path/to/artifact/world.txt
 
       - name: Upload Response
         uses: actions/upload-artifact@v2
@@ -41,6 +38,9 @@ jobs:
           name: response
           path: /home/runner/work/somedata`date +"%Y%m%d"`.json
 
+      #- run: mkdir -p path/to/artifact
+      #- run: echo hello > path/to/artifact/world.txt
+      #
       #- name: Upload Response
         #uses: actions/upload-artifact@v1
         #with:
