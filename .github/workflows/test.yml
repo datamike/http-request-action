@@ -10,7 +10,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
       
-      #- run: mkdir -p /home/runner/work
+      - run: mkdir -p /home/runner/work
 
       - name: Request Postment Echo GET
         uses: ./
