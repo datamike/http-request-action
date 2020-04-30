@@ -38,6 +38,16 @@ jobs:
 
       - run: echo ${{ steps.basic.outputs.response }}
       - run: echo ${{ steps.basic.outputs.response }} > /home/runner/work/somedata.json
+        
+      - name: Get-Read File
+        uses: GenesisSam/get-simple-file-action@v1.0.4
+        id: openFile
+        with:
+          file-name: ${{ '/home/runner/work/somedata.json' }}
+
+      - name: Print Result
+        if: success() && steps.openFile.outputs.data
+        run: echo "json_data> ${ steps.openFile.outputs.data }"  
 
       #- run: echo $response > /home/runner/work/somedata.json
       #- name: Print the response status
@@ -66,20 +76,20 @@ jobs:
         with:
           name: json_data
 
-  job_3:
-    name: Get-Read File
-    runs-on: ubuntu-latest
-    needs: [job_1]
-    steps:
-    - uses: actions/checkout@v1
+  #job_3:
+  #  name: Get-Read File
+  #  runs-on: ubuntu-latest
+  #  needs: [job_1]
+  #  steps:
+  #  - uses: actions/checkout@v1
 
-    - uses: GenesisSam/get-simple-file-action@v1.0.4
-      id: openFile
-      with:
-        file-name: ${{ '/home/runner/work/somedata.json' }}
+  #  - uses: GenesisSam/get-simple-file-action@v1.0.4
+  #    id: openFile
+  #    with:
+  #      file-name: ${{ '/home/runner/work/somedata.json' }}
 
-    - name: result
-      if: success() && steps.openFile.outputs.data
-      run: echo "json_data> ${ steps.openFile.outputs.data }"
+  #  - name: result
+  #    if: success() && steps.openFile.outputs.data
+  #    run: echo "json_data> ${ steps.openFile.outputs.data }"
 
           #FILE=/home/runner/work/historical-weather-data/historical-weather-data`date +"%Y%m%d"`.json
