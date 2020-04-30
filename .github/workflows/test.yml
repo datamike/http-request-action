@@ -76,6 +76,23 @@ jobs:
         with:
           name: json_data
 
+  job_3:
+    needs: [job_1]
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - id: set-matrix
+      run: echo "::set-output name=matrix::${{ needs.job_1.steps.basic.outputs.response }}"
+      
+  job_4:
+    needs: [job_3]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJson(needs.job_3.outputs.matrix)}}
+    steps:
+    - run: build
+
   #job_3:
   #  name: Get-Read File
   #  runs-on: ubuntu-latest
