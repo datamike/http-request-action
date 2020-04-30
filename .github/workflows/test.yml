@@ -92,6 +92,8 @@ jobs:
       matrix: ${{fromJson(needs.job_3.outputs.matrix)}}
     steps:
     - run: build
+    - id: show-JSONvalue-byKey
+      run: echo "parsed authenticated > ${{ matrix.authenticated }}"
 
   #job_3:
   #  name: Get-Read File
