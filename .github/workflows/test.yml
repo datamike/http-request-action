@@ -36,6 +36,7 @@ jobs:
           #output: response
 
       - run: echo ${{ steps.basic.outputs.response }}
+      - run: ${{ steps.basic.outputs.response }} > /home/runner/work/somedata.json
         
       #- run: echo $response > /home/runner/work/somedata.json
       #- name: Print the response status
@@ -51,7 +52,7 @@ jobs:
       - name: Upload Response
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.basic.outputs.response }}
+          name: json_data
           path: /home/runner/work/somedata.json
 
       #- name: Upload Response
