@@ -66,5 +66,20 @@ jobs:
         with:
           name: json_data
 
-          #FILE=/home/runner/work/historical-weather-data/historical-weather-data`date +"%Y%m%d"`.json
+  job_3:
+    name: Get-Read File
+    runs-on: ubuntu-latest
+    needs: [job_2]
+    steps:
+    - uses: actions/checkout@v1
 
+    - uses: GenesisSam/get-simple-file-action@v1.0.4
+      id: openFile
+      with:
+        file-name: json_data #${{ 'tmp/version' }}
+
+    - name: result
+      if: success() && steps.openFile.outputs.data
+      run: echo "json_data> ${ steps.openFile.outputs.data }"
+
+          #FILE=/home/runner/work/historical-weather-data/historical-weather-data`date +"%Y%m%d"`.json
