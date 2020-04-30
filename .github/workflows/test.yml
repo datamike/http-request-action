@@ -3,13 +3,14 @@ name: Test
 on: [push]
 
 jobs:
-  request:
+  job_1:
+    name: Make Request
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
-      
+
       - run: mkdir -p /home/runner/work
 
       - name: Request Postment Echo GET
@@ -17,14 +18,14 @@ jobs:
         with:
           url: 'https://postman-echo.com/get'
           method: 'GET'
-      
+
       - name: Request Postment Echo POST
         uses: ./
         with:
           url: 'https://postman-echo.com/post'
           method: 'POST'
           data: '{ "key": "value" }'
-      
+
       - name: Request Postman Echo Basic Auth
         id: basic
         uses: ./
@@ -37,7 +38,7 @@ jobs:
 
       - run: echo ${{ steps.basic.outputs.response }}
       - run: echo ${{ steps.basic.outputs.response }} > /home/runner/work/somedata.json
-        
+
       #- run: echo $response > /home/runner/work/somedata.json
       #- name: Print the response status
       #  run: echo ${{ steps.RequestEchoBasicAuth.outputs.status }}
@@ -55,12 +56,15 @@ jobs:
           name: json_data
           path: /home/runner/work/somedata.json
 
-      #- name: Upload Response
-        #uses: actions/upload-artifact@v1
-        #with:
-        #  name: dist
-        #  path: dist
+  job_2:
+    name: Upload the output
+    runs-on: ubuntu-latest
+    needs: [job_1]
+    steps:
+      - name: Download Response
+        uses: actions/upload-artifact@v1
+        with:
+          name: json_data
 
-        #
           #FILE=/home/runner/work/historical-weather-data/historical-weather-data`date +"%Y%m%d"`.json
 
