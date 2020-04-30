@@ -83,7 +83,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
     - id: set-matrix
-      run: echo "::set-output name=matrix::${{ needs.job_1.steps.basic.outputs.response }}"
+      run: echo "::set-output name=matrix::needs.job_1.steps.basic.outputs.response"
       
   job_4:
     needs: [job_3]
