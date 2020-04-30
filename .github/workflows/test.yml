@@ -47,7 +47,7 @@ jobs:
 
       - name: Print Result
         if: success() && steps.openFile.outputs.data
-        run: echo "json_data> ${ steps.openFile.outputs.data }"  
+        run: echo "/home/runner/work/somedata.json> ${ steps.openFile.outputs.data }"  
 
       #- run: echo $response > /home/runner/work/somedata.json
       #- name: Print the response status
