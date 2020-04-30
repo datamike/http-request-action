@@ -80,14 +80,14 @@ jobs:
     needs: [job_1]
     runs-on: ubuntu-latest
     env:
-      JSON_INPUT: ${{ needs.job_1.steps.basic.outputs.response }}
+      JsonString: ${{ needs.job_1.steps.basic.outputs.response }}
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
     - name: Print env variable
-      run: echo "variable ${{JSON_INPUT}}"
+      run: echo "variable ${{ JsonString }}"
     - id: set-matrix
-      run: echo "::set-output name=matrix::${{ JSON_INPUT }}"
+      run: echo "::set-output name=matrix::${{ JsonString}}"
       
   job_4:
     needs: [job_3]
