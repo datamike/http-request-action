@@ -62,7 +62,7 @@ jobs:
     needs: [job_1]
     steps:
       - name: Download Response
-        uses: actions/upload-artifact@v1
+        uses: actions/download-artifact@v1
         with:
           name: json_data
 
