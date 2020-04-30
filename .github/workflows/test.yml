@@ -36,7 +36,7 @@ jobs:
           #output: response
 
       - run: echo ${{ steps.basic.outputs.response }}
-      - run: ${{ steps.basic.outputs.response }} > /home/runner/work/somedata.json
+      - run: echo ${{ steps.basic.outputs.response }} > /home/runner/work/somedata.json
         
       #- run: echo $response > /home/runner/work/somedata.json
       #- name: Print the response status
