@@ -43,11 +43,11 @@ jobs:
         uses: GenesisSam/get-simple-file-action@v1.0.4
         id: openFile
         with:
-          file-name: ${{ '/home/runner/work/somedata.json' }}
+          file-name: '/home/runner/work/somedata.json'   # ${{ }}
 
       - name: Print Result
         if: success() && steps.openFile.outputs.data
-        run: echo ${ steps.openFile.outputs.data }  # /home/runner/work/somedata.json> 
+        run: echo "/home/runner/work/somedata.json> ${ steps.openFile.outputs.data }"   
 
       #- run: echo $response > /home/runner/work/somedata.json
       #- name: Print the response status
