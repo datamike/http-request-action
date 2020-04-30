@@ -79,21 +79,27 @@ jobs:
   job_3:
     needs: [job_1]
     runs-on: ubuntu-latest
+    env:
+      JSON_INPUT: ${{ needs.job_1.steps.basic.outputs.response }}
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+    - name: Print env variable
+      run: echo "variable ${{JSON_INPUT}}"
     - id: set-matrix
-      run: echo "::set-output name=matrix::needs.job_1.steps.basic.outputs.response"
+      run: echo "::set-output name=matrix::${{ JSON_INPUT }}"
       
   job_4:
     needs: [job_3]
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{fromJson(needs.job_3.outputs.matrix)}}
+      matrix: ${{ fromJson(needs.job_3.outputs.matrix )}}
     steps:
     - run: build
-    - id: show-JSONvalue-byKey
-      run: echo "parsed authenticated > ${{ matrix.authenticated }}"
+
+    - name: show-JSONvalue-byKey
+      run: echo "parsed authenticated > ${{ matrix }}"
+      #run: echo "parsed authenticated > ${{ matrix.authenticated }}"
 
   #job_3:
   #  name: Get-Read File
