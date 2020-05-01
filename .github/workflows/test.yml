@@ -116,8 +116,8 @@ jobs:
       - name: Request Mattermost Login POST
         id: doLogin
         env:
-          username: ${{ MATTERMOST_USERNAME }}
-          pw: ${{ MATTERMOST_PW }}
+          username: ${{ secrets.MATTERMOST_USERNAME }}
+          pw: ${{ secrets.MATTERMOST_PW }}
         uses: ./
         with:
           url: 'https://chat.diglife.coop/api/v4/users/login'
