@@ -116,7 +116,7 @@ jobs:
       - name: Request Mattermost Login POST
         id: doLogin
         env:
-          username: ${{ MATTERMOST_USER }}
+          username: ${{ MATTERMOST_USERNAME }}
           pw: ${{ MATTERMOST_PW }}
         uses: ./
         with:
