@@ -106,6 +106,9 @@ jobs:
   job_5:
     name: Mattermost Request
     runs-on: ubuntu-latest
+    env:
+      username: ${{ secrets.MATTERMOST_USERNAME }}
+      pw: ${{ secrets.MATTERMOST_PW }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -113,21 +116,21 @@ jobs:
 
       #- run: mkdir -p /home/runner/work
 
+      - name: echo env variables
+        run: 
+          echo username - $username
+          echo password check - startsWith( $pw, 'RJ')
+
       - name: Request Mattermost Login POST
-        id: doLogin
-        env:
-          username: ${{ secrets.MATTERMOST_USERNAME }}
-          pw: ${{ secrets.MATTERMOST_PW }}
+        id: doLogin  
         uses: ./
         with:
           url: 'https://chat.diglife.coop/api/v4/users/login'
           method: 'POST'
-          data: '{ "login_id": "$username", "password": "$pw" }'
+          data: '{ "login_id": "${{ username }}", "password": "${{ pw }}" }'
 
       - name: echo Login Response
         run: 
-          echo "username - $username"
-          echo "password check - startsWith( $pw, 'RJ')"
           echo "Input data > ${{ steps.doLogin.input.data }}"
           echo "Output data > ${{ steps.doLogin.output.data }}"
 
