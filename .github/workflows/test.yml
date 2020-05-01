@@ -127,7 +127,7 @@ jobs:
         with:
           url: 'https://chat.diglife.coop/api/v4/users/login'
           method: 'POST'
-          data: '{ "login_id": "${{ username }}", "password": "${{ pw }}" }'
+          data: '{ "login_id": "${{ $username }}", "password": "${{ $pw }}" }'
 
       - name: echo Login Response
         run: 
