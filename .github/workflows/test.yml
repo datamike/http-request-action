@@ -81,14 +81,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JsonString: ${{ needs.job_1.steps.basic.outputs.response }}
-      run: echo "$JsonString"
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+      - name: print JSON
+        run: echo "$JsonString"
     #- name: Print env variable
     #  run: echo "variable ${{ JsonString }}"
-    - id: set-matrix
-      run: echo "::set-output name=matrix::job_3.env.JsonString"
+      - id: set-matrix
+        run: echo "::set-output name=matrix::job_3.env.JsonString"
       
   job_4:
     needs: [job_3]
@@ -101,6 +102,32 @@ jobs:
     - name: show-JSONvalue-byKey
       run: echo "parsed authenticated > ${{ matrix }}"
       #run: echo "parsed authenticated > ${{ matrix.authenticated }}"
+
+  job_5:
+    name: Mattermost Request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
+      #- run: mkdir -p /home/runner/work
+
+      - name: Request Mattermost Login POST
+        id: doLogin
+        env:
+          username: ${{ MATTERMOST_USER }}
+          pw: ${{ MATTERMOST_PW }}
+        uses: ./
+        with:
+          url: 'https://chat.diglife.coop/api/v4/users/login'
+          method: 'POST'
+          data: '{ "login_id": $username, "password": $pw }'
+
+      - name: echo Login Response
+        run: 
+          echo "Input data > ${{ steps.doLogin.input.data }}"
+          echo "Output data > ${{ steps.doLogin.output.data }}"
 
   #job_3:
   #  name: Get-Read File
